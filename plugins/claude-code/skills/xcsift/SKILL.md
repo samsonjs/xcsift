@@ -8,6 +8,8 @@ version: 1.0.3
 
 xcsift parses and formats xcodebuild/SPM output into token-efficient TOON format optimized for LLM consumption. It extracts compile errors, warnings, test failures, code coverage, and build timing from verbose Xcode output.
 
+> ⚠️ **xcsift is a stdin filter, NOT a command wrapper.** It reads build output piped into it on stdin. Do **not** write `xcsift xcodebuild test …` — xcsift will parse the build args as its own flags and just print this help. Either pipe (`xcodebuild … 2>&1 | xcsift -f toon`) or, when the auto-wrap PreToolUse hook is installed, just run the bare `xcodebuild`/`swift` command and let the hook add the pipe. The wrapper form `xcsift <command>` is always wrong and also bypasses the hook.
+
 ## When to Use
 
 **Always** pipe through xcsift when running:
